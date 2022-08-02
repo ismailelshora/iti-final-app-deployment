@@ -34,9 +34,9 @@ pipeline {
       //  agent { label 'master' }
         steps {
            echo "======== Deploy-Stage ========"
-          withKubeConfig([namespace: "app", credentialsId: 'jke']) {
-             //sh 'kubectl apply -f ./deployapp/namespace.yaml'
-             sh 'kubectl apply -Rf ./deployapp --namespace app'
+          withKubeConfig([namespace: "defulte", credentialsId: 'jke']) {
+             sh 'kubectl apply -f ./deployapp/namespace.yml'
+             sh 'kubectl apply -Rf ./deployapp --namespace deploy'
         }
         }   
       }
