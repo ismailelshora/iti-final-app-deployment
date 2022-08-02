@@ -19,7 +19,8 @@ pipeline {
             }
         stage('app deploy') {
             steps {
+                 withKubeConfig([namespace: "app", credentialsId: 'ismail-ramadan']){
                 sh 'kubectl apply -Rf ./deployapp' }
-            }
+            }}
         }
     }
