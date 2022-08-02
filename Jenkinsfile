@@ -31,7 +31,7 @@ pipeline {
             }
         stage('Deploy-To-Production') {
       // run the the deploy stage on master node
-        agent { label 'master' }
+      //  agent { label 'master' }
         steps {
            echo "======== Deploy-Stage ========"
           withKubeConfig([namespace: "default", credentialsId: 'jke']) {
