@@ -35,8 +35,8 @@ pipeline {
         steps {
            echo "======== Deploy-Stage ========"
           withKubeConfig([namespace: "defulte", credentialsId: 'jke']) {
-             sh 'kubectl apply -f /deployapp/namespace.yml'
-             sh 'kubectl apply -Rf /deployapp --namespace deploy'
+             sh 'kubectl apply -f ./deployapp/namespace.yml'
+             sh 'kubectl apply -Rf ./deployapp --namespace deploy'
         }
         }   
       }
