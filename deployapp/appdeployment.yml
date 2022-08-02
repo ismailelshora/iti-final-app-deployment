@@ -4,12 +4,12 @@ metadata:
   name: web-app
   namespace: deploy
   labels:
-          app: web-app
+     app: web-app
 spec:
   replicas: 2
   selector:
-       app: web-app
     matchLabels:
+        app: web-app
   template:
     metadata:
       labels:
