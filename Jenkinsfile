@@ -1,64 +1,26 @@
+ lines (25 sloc) 914 Bytes
+#!groovy
 pipeline {
     agent any
-    environment {
-        PROJECT_ID = 'ismail-354112'
-        CLUSTER_NAME = 'jke'
-        LOCATION = 'us-central1-a'
-        CREDENTIALS_ID = 'ismail-ramadan'
-    }
-    stages {
-        stage("Checkout code") {
-            steps {
-                checkout scm
-            }
-        }
-
-           stages {           
+    stages {           
         stage('Build app') {
             steps {
-                sh 'docker build -t hello-devops:latest -f Dockerfile .'}
+                sh 'docker build -t hello-pythonapp:latest -f Dockerfile .'}
             }
         stage('tagging the image') {
             steps {
-                sh 'docker tag hello-devops:latest abdelrahman1111/grad-proj:hello-devops'}
+                sh 'docker tag hello-pythonapp:latest ismailramadan/hello-pythonapp'}
             }
-
-   /* stage("Build image") {
+        stage('push the image') {
             steps {
-                script {
-                    myapp = docker.build("ismailramadan/hello-pythonapp:${env.BUILD_ID}")
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    sh 'docker push abdelrahman1111/grad-proj:hello-devops'   }
                 }
             }
-        }
-
-    /*stage('Login-Into-Docker') {
-      steps {
-         withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-
-                container('docker') {
-          
-                     sh 'docker login -u ${USERNAME} -p ${PASSWORD}'
-                }
+        stage('app deploy') {
+            steps {
+                sh 'kubectl apply -Rf ./deployapp' }
             }
-     
         }
     }
-       
-        stage("Push image") {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            myapp.push("latest")
-                            myapp.push("${env.BUILD_ID}")
-                    }
-                }
-            }
-        }
-        stage('Deploy to GKE') {
-            steps{
-                sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployapp/appdeployment.yml"
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployapp/appdeployment.yml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-            }
-        }
-    }*/
-}
