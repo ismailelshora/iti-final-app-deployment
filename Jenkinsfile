@@ -10,13 +10,13 @@ pipeline {
             steps {
                 sh 'docker tag hello-pythonapp:latest ismailramadan/hello-pythonapp'}
             }
-       /* stage('push the image') {
+       stage('push the image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                     sh 'docker push ismailramadan/hello-pythonapp'   }
                 }
-            }*/
+            }
         stage('app deploy') {
             steps {
                 sh 'kubectl apply -Rf ./deployapp' }
