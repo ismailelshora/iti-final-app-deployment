@@ -1,4 +1,3 @@
- lines (25 sloc) 914 Bytes
 #!groovy
 pipeline {
     agent any
