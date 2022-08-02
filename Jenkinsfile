@@ -9,38 +9,7 @@ pipeline {
     JENKINS_CRED = "${PROJECT}"
   }
 
-  agent {
-    kubernetes {
-      yaml '''
-        apiVersion: v1
-        kind: Pod
-        spec:
-          containers:
-          - name: python
-            image: python:3.9-alpine
-            command:
-            - cat
-            tty: true
-          - name: docker
-            image: docker:latest
-            command:
-            - cat
-            tty: true
-            volumeMounts:
-             - mountPath: /var/run/docker.sock
-               name: docker-sock
-          volumes:
-          - name: docker-sock 
-            hostPath:
-              path: /var/run/docker.sock 
-          - name: kubectl-config
-            hostPath:
-              path: /var/jenkins_home/.kube/config 
-              
-            
-        '''
-    }
-  }
+  
 
 
     agent any
