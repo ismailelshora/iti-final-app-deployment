@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
-COPY . finalapp-deploy/app-code
-WORKDIR finalapp-deploy/app-code
+COPY app-code /app-code
+WORKDIR /app-code
 RUN pip install -r requirements.txt
 RUN apk --update add redis
 EXPOSE 8000
