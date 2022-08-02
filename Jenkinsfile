@@ -14,7 +14,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    sh 'docker push abdelrahman1111/grad-proj:hello-devops'   }
+                    sh 'docker push ismailramadan/hello-pythonapp'   }
                 }
             }
         stage('app deploy') {
