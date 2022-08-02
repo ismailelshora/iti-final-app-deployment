@@ -1,5 +1,48 @@
 #!groovy
 pipeline {
+
+    environment {
+    PROJECT = "ismail-354112"
+    APP_NAME = "hello-pythonapp"
+    CLUSTER = "jke"
+    CLUSTER_ZONE = "us-central1-a"
+    JENKINS_CRED = "${PROJECT}"
+  }
+
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: python
+            image: python:3.9-alpine
+            command:
+            - cat
+            tty: true
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+          volumes:
+          - name: docker-sock 
+            hostPath:
+              path: /var/run/docker.sock 
+          - name: kubectl-config
+            hostPath:
+              path: /var/jenkins_home/.kube/config 
+              
+            
+        '''
+    }
+  }
+
+
     agent any
     stages {           
         stage('Build app') {
@@ -19,7 +62,7 @@ pipeline {
             }
         stage('app deploy') {
             steps {
-                 withKubeConfig([namespace: "default", credentialsId: 'ismail-ramadan']){
+                 withKubeConfig([namespace: "default", credentialsId: 'jke']){
                 sh 'kubectl apply -Rf ./deployapp' }
             }}
         }
