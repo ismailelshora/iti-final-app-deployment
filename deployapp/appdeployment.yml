@@ -9,10 +9,8 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      type: front-end
   template:
     metadata:
-      name: myapp-pod
       labels:
         app: web-app
     spec:
