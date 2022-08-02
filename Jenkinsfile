@@ -13,7 +13,17 @@ pipeline {
             }
         }
 
-    stage("Build image") {
+           stages {           
+        stage('Build app') {
+            steps {
+                sh 'docker build -t hello-devops:latest -f Dockerfile .'}
+            }
+        stage('tagging the image') {
+            steps {
+                sh 'docker tag hello-devops:latest abdelrahman1111/grad-proj:hello-devops'}
+            }
+
+   /* stage("Build image") {
             steps {
                 script {
                     myapp = docker.build("ismailramadan/hello-pythonapp:${env.BUILD_ID}")
@@ -32,7 +42,7 @@ pipeline {
             }
      
         }
-    }*/
+    }
        
         stage("Push image") {
             steps {
@@ -50,5 +60,5 @@ pipeline {
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployapp/appdeployment.yml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
-    }
+    }*/
 }
