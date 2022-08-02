@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{
+      static_url("css/style.css")
+    }}">
+
+    <title>Hello, world from Ismail Ramadan!</title>
+  </head>
+
+  <body>
+    <div>
+      <p>
+        👋 Hi from
+        <span class="highlight" id="{{ dict['environment'] }}">{{
+          dict["environment"]
+        }}</span>
+        environment!
+      </p>
+      <p><span class="counter">Counter:</span> {{ dict["counter"] }}</p>
+    </div>
+    <div>
+      <button type="button" onClick="window.location.reload()">Reload</button>
+      <h1>from Ismail Ramadan</h1>
+    </div>
+  </body>
+</html>
