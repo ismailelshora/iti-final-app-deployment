@@ -8,6 +8,7 @@ metadata:
 spec:
   replicas: 2
   selector:
+       app: web-app
     matchLabels:
   template:
     metadata:
@@ -15,7 +16,7 @@ spec:
         app: web-app
     spec:
       containers:
-      - name: hello-app
+      - name: web-app
         image: ismailramadan/hello-pythonapp:latest
 
 
