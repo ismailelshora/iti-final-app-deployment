@@ -54,7 +54,7 @@ Now after setting up the jenkins pods and grant him the needed permission, i can
 
 3) external ip and port from service deploy namespace
 
-![frombrawoser](https://user-images.githubusercontent.com/86315031/182559703-90f00148-7894-46ce-987b-a96a0f5f633e.png)
+![1](https://user-images.githubusercontent.com/86315031/182560378-390c377a-afdd-45aa-8080-e61c6abd06f6.png)
 
 
 
